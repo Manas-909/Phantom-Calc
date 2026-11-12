@@ -18,3 +18,22 @@ body {
     padding: 30px 20px;
 }
 
+.header {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.header h1{
+    font-size: 42;
+    margin-bottom: 10px;
+}
+
+.prizes h2{
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+.prizes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
