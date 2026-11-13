@@ -4,7 +4,8 @@ const prizes = [
         name: "Minecraft",
         fragments: 60,
         image: "assets/minecraft.jpg",
-        quantity: 0
+        quantity: 0,
+        artwork: true
     },
     {
         id: 2,
@@ -26,6 +27,14 @@ const prizes = [
         fragments: 1500,
         image: "assets/ipad-mini.png",
         quantity: 0
+    },
+    {
+        id: 5,
+        name: "Chants of sennar",
+        fragments: 60,
+        image: "assets/chants-of-sennaar.png",
+        quantity: 0,
+        artwork: true
     }
 ];
 
@@ -39,7 +48,7 @@ function showPrizes() {
         card.classList.add("prize-card");
 
         card.innerHTML = `
-            <img src="${prize.image}" alt="${prize.name}" class="prize-image">
+            <img src="${prize.image}" alt="${prize.name}" class="prize-image ${prize.artwork ? 'artwork' : ''}">
 
             <div class="prize-info">
                 <h3>${prize.name}</h3>
