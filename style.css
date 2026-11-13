@@ -214,6 +214,53 @@ body {
     font-weight: bold;
 }
 
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.phantom-status {
+    width: 280px;
+    text-align: right;
+}
+
+.days-left {
+    color: #cccccc;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.days-left span {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.progress-bar {
+    height: 16px;
+    background-color: #202023;
+    border: 1px solid #55555a;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background-image: repeating-linear-gradient(90deg, #e5e1dc 0 6px, transparent 6px 9px);
+    transition: width 0.5s ease;
+}
+
+.progress-label {
+    color: #aaaaaa;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
 @media (max-width: 850px) {
     .prizes-grid {grid-template-columns: repeat(2, 1fr);}
 }
@@ -224,5 +271,10 @@ body {
     .header h1 {font-size: 32px;}
 
     .container{padding: 20px 14px;}
+
+    .phantom-status {
+        width: 100%;
+        text-align: left;
+    }
 }
 

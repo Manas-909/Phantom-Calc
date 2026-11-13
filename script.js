@@ -165,3 +165,26 @@ approvedInput.addEventListener("input", () => {
 });
 
 approvedInput.addEventListener("input", calculateTotal);
+
+const PHANTOM_START = new Date("2026-08-13T00:00:00");
+const PHANTOM_END = new Date("2027-02-28T23:59:59");
+const DAY_MS = 1000*60*60*24;
+
+function updatePhantomStatus() {
+    const now = new Date();
+
+    const totalMs = PHANTOM_END - PHANTOM_START;
+    const elapsedMs = now - PHANTOM_START;
+
+    const daysLeft = Math.max(0, Math.ceil((PHANTOM_END - now) / DAY_MS));
+
+    const percent = Math.min(100, Math.max(0, (elapsedMs / totalMs) * 100));
+
+    document.getElementById("days-remaining").textContent = daysLeft;
+    document.getElementById("progress-fill").style.width = `${percent}%`;
+    document.getElementById("progress-label").textContent = `${percent.toFixed(0)}% of Phantom complete`;
+}
+
+updatePhantomStatus();
+
+setInterval(updatePhantomStatus, 60 * 60 *1000);
