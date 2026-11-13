@@ -23,19 +23,20 @@
         <div class="calc">
             <h2>Your Goal</h2>
             <div class="calc-var">
-                <p>Total fragments required <span id="required-hours">0</span></p>
+                <p>Total fragments required <span id="total-fragments">0</span></p>
             </div>
             <div class="calc-var">
                 <p>Total hours required <span id="required-hours">0</span></p>
             </div>
 
-            <div class="input">
+            <div class="input-group">
                 <label for="approved-hours">Approved hours</label>
-                <input type="number", id="approved-hours", step="0.1", placeholder="Enter approved hours" >
+                <input type="number" id="approved-hours" step="0.1" placeholder="Enter approved hours" >
             </div>
 
             <div class="calc-rslt">
-                <p>Remaining hours <span id="remaining-hours">0</span></p>
+                <span>Remaining hours</span>
+                <h2 id="remaining-hours"> 0 hours</h2>
             </div>
         </div>
 

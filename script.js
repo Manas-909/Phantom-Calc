@@ -5,6 +5,27 @@ const prizes = [
         fragments: 60,
         image: "assets/minecraft.jpg",
         quantity: 0
+    },
+    {
+        id: 2,
+        name: "Framework 13",
+        fragments: 3750,
+        image: "assets/framework-13-pro.png",
+        quantity: 0
+    },
+    {
+        id: 3,
+        name: "Github Frisbee",
+        fragments: 200,
+        image: "assets/github-frisbee.webp",
+        quantity: 0
+    },
+    {
+        id: 4,
+        name: "ipad mini",
+        fragments: 1500,
+        image: "assets/ipad-mini.png",
+        quantity: 0
     }
 ];
 
@@ -54,7 +75,7 @@ function addPrize(id) {
 function removePrize(id) {
     const prize = prizes.find(item => item.id === id);
 
-    prize.quantity -= 1;
+    prize.quantity--;
 
     updateControls(prize);
     calculateTotal();
@@ -108,8 +129,8 @@ function calculateTotal() {
     const remainingHours = Math.max(0, requiredHours - approvedHours);
 
     document.getElementById("total-fragments").textContent = totalFragments;
-    document.getElementById("required-hours").textContent = `${requiredHours} hours`;
-    document.getElementById("remaining-hours").textContent = `${remainingHours} hours`;
+    document.getElementById("required-hours").textContent = `${requiredHours.toFixed(1)} hours`;
+    document.getElementById("remaining-hours").textContent = `${remainingHours.toFixed(1)} hours`;
 
 }
 
