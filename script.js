@@ -35,6 +35,13 @@ const prizes = [
         image: "assets/chants-of-sennaar.png",
         quantity: 0,
         artwork: true
+    },
+    {
+        id: 6,
+        name: "PC grant",
+        fragments: 500,
+        image: "assets/pc-grant.png",
+        quantity: 0
     }
 ];
 
@@ -143,4 +150,18 @@ function calculateTotal() {
 
 }
 
-document.getElementById("approved-hours").addEventListener("input", calculateTotal);
+const approvedInput = document.getElementById("approved-hours");
+
+approvedInput.addEventListener("keydown", event => {
+    if (["-", "+", "e", "E"].includes(event.key)) {
+        event.preventDefault();
+    }
+});
+
+approvedInput.addEventListener("input", () => {
+    if (approvedInput.value !== "" && Number(approvedInput.value) < 0) {
+        approvedInput.value = 0;
+    }
+});
+
+approvedInput.addEventListener("input", calculateTotal);

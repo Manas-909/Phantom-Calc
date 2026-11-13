@@ -138,6 +138,14 @@ body {
     background-size: 12px 12px;
 }
 
+.calc h2 {
+    font-family: 'Playfair Display', 'serif';
+    font-style: italic;
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
 .calc-item {
     display: flex;
     justify-content: space-between;
