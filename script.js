@@ -61,7 +61,11 @@ function showPrizes() {
                 <h3>${prize.name}</h3>
 
                 <p class="prize-price">
-                    ${prize.fragments} fragments
+                    <img src="assets/fragment.svg" alt="fragment" class="fragment-icon">
+                    <input type="number" class="fragment-input" min="0" step="1"
+                        value="${prize.fragments}"
+                        oninput="updateFragments(${prize.id}, this.value)"
+                        onblur="resetEmptyFragments(this, ${prize.id})">
                 </p>
 
                 <div class="prize-controls" id="controls-${prize.id}">
@@ -188,3 +192,18 @@ function updatePhantomStatus() {
 updatePhantomStatus();
 
 setInterval(updatePhantomStatus, 60 * 60 *1000);
+
+function updateFragments(id, newValue) {
+    const prize = prizes.find(item => item.id === id)
+
+    prize.fragments = Math.max(0, Math.floor(Number(newValue)) || 0);
+
+    calculateTotal();
+}
+
+function resetEmptyFragments(input, id) {
+    if (input.value === "") {
+        const prize = prizes.find(item => item.id === id);
+        input.value = prize.fragments;
+    }
+}

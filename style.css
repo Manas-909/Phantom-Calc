@@ -93,6 +93,9 @@ body {
 }
 
 .prize-price {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: #bbbbbb;
     font-size: 16px;
     margin-bottom: 20px;
@@ -274,6 +277,34 @@ body {
     text-align: left;
     white-space: nowrap;
     margin-left: 3px;
+}
+
+.fragment-input {
+    width: 70px;
+    padding: 2px 4px;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+}
+
+.fragment-input:hover {
+    border-color: #55555a;
+}
+
+.fragment-input:focus {
+    outline: none;
+    border-color: #eeeeee;
+    border-color: #202023;
+}
+
+.fragment-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: brightness(0) invert(0.7);
 }
 
 @media (max-width: 850px) {
