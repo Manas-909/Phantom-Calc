@@ -39,22 +39,49 @@
         </div>
 
         <div class="calc">
-            <h2>Your Goal</h2>
-            <div class="calc-var">
-                <p>Total fragments required <span id="total-fragments">0</span></p>
-            </div>
-            <div class="calc-var">
-                <p>Total hours required <span id="required-hours">0</span></p>
-            </div>
+            <div class="calc-columns">
+                <div class="calc-left">
+                    <h2>Your Goal</h2>
+                    <div class="calc-var">
+                        <span>Total fragments required</span>
+                        <span id="total-fragments">0</span>
+                    </div>
+                    <div class="calc-var">
+                        <span>Total hours required</span>
+                        <span id="required-hours">0</span>
+                    </div>
 
-            <div class="input-group">
-                <label for="approved-hours">Approved hours</label>
-                <input type="number" id="approved-hours" step="0.1" min="0" placeholder="Enter approved hours" >
-            </div>
+                    <div class="input-group">
+                        <label for="approved-hours">Approved hours</label>
+                        <input type="number" id="approved-hours" min="0" step="0.1" placeholder="Enter approved hours">
+                    </div>
 
-            <div class="calc-rslt">
-                <span>Remaining hours</span>
-                <h1 id="remaining-hours"> 0 hours</h1>
+                    <div class="calc-rslt">
+                        <span>Remaining hours</span>
+                        <h2 id="remaining-hours">0 hours</h2>
+                    </div>
+                </div>
+
+                <div class="calc-right">
+                    <h2>Per Day</h2>
+
+                    <div class="per-day">
+                        <span id="hours-per-day">0.0</span>
+                        <span class="per-day-unit">hours / day</span>
+                    </div>
+
+                    <p class="per-day-note"><span id="days-to-code">0</span> days to code</p>
+
+                    <div class="calendar">
+                        <h3 id="calendar-title"></h3>
+                        <div class="calendar-weekdays">
+                            <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                        </div>
+
+                        <div class="calendar-grid" id="calendar-grid"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
 

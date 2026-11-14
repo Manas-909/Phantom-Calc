@@ -152,6 +152,11 @@ function calculateTotal() {
     document.getElementById("required-hours").textContent = `${requiredHours.toFixed(1)} hours`;
     document.getElementById("remaining-hours").textContent = `${remainingHours.toFixed(1)} hours`;
 
+    const resultBox = document.querySelector(".calc-rslt");
+    resultBox.classList.toggle("goal-reached", totalFragments > 0 && remainingHours === 0);
+
+    updatePerDay(remainingHours);
+
 }
 
 const approvedInput = document.getElementById("approved-hours");
@@ -191,7 +196,61 @@ function updatePhantomStatus() {
 
 updatePhantomStatus();
 
-setInterval(updatePhantomStatus, 60 * 60 *1000);
+function updatePerDay(remainingHours) {
+    const today = new Date()
+    today.setHours(0,0,0,0);
+
+    const end = new Date(PHANTOM_END)
+    end.setHours(0,0,0,0);
+
+    const daysToCode = Math.max(0, Math.round((end - today) / DAY_MS) + 1);
+
+    const hoursPerDay = daysToCode > 0 ? remainingHours / daysToCode : 0;
+
+    document.getElementById("hours-per-day").textContent = hoursPerDay.toFixed(1);
+    document.getElementById("days-to-code").textContent = daysToCode;
+
+    renderCalendar(today, end);
+}
+
+function renderCalendar(today, end) {
+    const grid = document.getElementById("calendar-grid");
+    const title = document.getElementById("calendar-title");
+
+    const year = today.getFullYear();
+    const month = today.getMonth();
+
+    title.textContent = today.toLocaleDateString("en-US", {month: "long", year: "numeric"});
+
+    const firstWeekday = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    grid.innerHTML = "";
+
+    for (let i = 0; i < firstWeekday; i++) {
+        const empty = document.createElement("div");
+        grid.appendChild(empty);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year,month, day);
+        const cell = document.createElement("div");
+        cell.classList.add("cal-day");
+        cell.textContent = day;
+
+        if (date < today) {
+            cell.classList.add("past");
+        } else if (date <= end) {
+            cell.classList.add("coding");
+        }
+
+        if (date.getTime() === today.getTime()) {
+            cell.classList.add("today");
+        }
+
+        grid.appendChild(cell);
+    }
+}
 
 function updateFragments(id, newValue) {
     const prize = prizes.find(item => item.id === id)
@@ -207,3 +266,6 @@ function resetEmptyFragments(input, id) {
         input.value = prize.fragments;
     }
 }
+
+setInterval(updatePhantomStatus, 60 * 60 *1000);
+calculateTotal();

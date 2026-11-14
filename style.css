@@ -57,7 +57,7 @@ body {
         linear-gradient(#ffffff09 1px, transparent 1px),
         linear-gradient(90deg, #ffffff09 1px, transparent 1px);
 
-    background-size: 12px 12px;
+    background-size: 8px 8px;
 
     transition: 0.2s, border-color 0.2s;
 }
@@ -305,6 +305,107 @@ body {
     object-fit: contain;
     flex-shrink: 0;
     filter: brightness(0) invert(0.7);
+}
+
+.calc-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.calc-right h2 {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.per-day {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.per-day span:first-child {
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.per-day-unit {
+    color: #cccccc;
+    font-size: 16px;
+}
+
+.per-day-note {
+    color: #aaaaaa;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.per-day-note span {
+    color: white;
+    font-weight: bold;
+}
+
+.calendar h3 {
+    font-size: 16px;
+    font-weight: normal;
+    color: #cccccc;
+    margin-bottom: 12px;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+.calendar-weekdays {
+    color: #888888;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #777777;
+    background-color: #202023;
+    border-radius: 6px;
+}
+
+.cal-day.coding {
+    background-color: #e5e1dc;
+    color: #171719;
+    font-weight: 600;
+}
+
+.cal-day.past {
+    opacity: 0.35;
+}
+
+.cal-day.today {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.calc-rslt.goal-reached {
+    background-color: #1b3524;
+    border-color: #2e7d43;
+}
+
+.calc-rslt.goal-reached h2 {
+    color: #7ee29a;
+}
+
+@media (max-width: 850px) {
+    .calc-columns {grid-template-columns: 1fr;}
 }
 
 @media (max-width: 850px) {
