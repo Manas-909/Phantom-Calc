@@ -309,13 +309,16 @@ body {
 
 .calc-columns {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
 }
 
 .calc-right h2 {
-    font-size: 24px;
-    margin-bottom: 16px;
+    font-family: 'Playfair Display', 'serif';
+    font-style: italic;
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 20px;
 }
 
 .per-day {
@@ -402,6 +405,12 @@ body {
 
 .calc-rslt.goal-reached h2 {
     color: #7ee29a;
+}
+
+.calc-right {
+    border-left: 1px solid #55555a;
+    padding-left: 20px;
+    min-width: 0;
 }
 
 @media (max-width: 850px) {
