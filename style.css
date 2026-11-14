@@ -27,9 +27,12 @@ body {
 .header h1{
     font-size: 45px;
     margin-bottom: 10px;
+    margin-top: 5px;
     font-family: 'Playfair Display', 'serif';
     font-style: italic;
     font-weight: 400;
+    position: relative;
+    top: 8px;
 }
 
 .prizes h2{
@@ -223,20 +226,24 @@ body {
 }
 
 .phantom-status {
-    width: 280px;
-    text-align: right;
+    width: 380px;
+    display: flex;
+    align-items: flex-start;
 }
 
 .days-left {
     color: #cccccc;
     font-size: 16px;
-    margin-bottom: 8px;
+    line-height: 1;
+    white-space: nowrap;
+    margin-top: -9px;
 }
 
 .days-left span {
     color: white;
     font-size: 28px;
     font-weight: bold;
+    line-height: 1;
     font-variant-numeric: tabular-nums;
 }
 
@@ -255,10 +262,18 @@ body {
     transition: width 0.5s ease;
 }
 
+.progress-wrap {
+    flex: 1;
+    margin-left: -20px;
+}
+
 .progress-label {
     color: #aaaaaa;
     font-size: 13px;
     margin-top: 8px;
+    text-align: left;
+    white-space: nowrap;
+    margin-left: 3px;
 }
 
 @media (max-width: 850px) {
