@@ -60,7 +60,8 @@ const prizes = [
         name: "aseprite license",
         fragments: 40,
         image: "assets/aseprite-license.png",
-        quantity: 0
+        quantity: 0,
+        artwork: true
     },
     {
         id: 10,
