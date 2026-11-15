@@ -59,6 +59,9 @@ body {
 
     background-size: 8px 8px;
 
+    display: flex;
+    flex-direction: column;
+
     transition: 0.2s, border-color 0.2s;
 }
 
@@ -85,6 +88,10 @@ body {
 
 .prize-info {
     padding: 18px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .prize-info h3 {
@@ -106,7 +113,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin-top: 20px;
+    margin-top: auto;
 }
 
 .add-button,
@@ -252,16 +259,19 @@ body {
 
 .progress-bar {
     height: 16px;
-    background-color: #202023;
-    border: 1px solid #55555a;
-    border-radius: 4px;
+    background-color: #1a1a1d;
+    border: 1px solid #3a3a3f;
+    border-radius: 1000px;
     overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .progress-fill {
     height: 100%;
     width: 0;
-    background-image: repeating-linear-gradient(90deg, #e5e1dc 0 6px, transparent 6px 9px);
+    border-radius: 1000px;
+    background: linear-gradient(90deg, #a8a29a, #e5e1dc 70%, #ffffff);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
     transition: width 0.5s ease;
 }
 
@@ -411,6 +421,14 @@ body {
     border-left: 1px solid #55555a;
     padding-left: 20px;
     min-width: 0;
+}
+
+.cal-day.clickable {
+    cursor: pointer;
+}
+
+.cal-day.clickable:hover {
+    filter: brightness(1.15);
 }
 
 @media (max-width: 850px) {
