@@ -431,6 +431,70 @@ body {
     filter: brightness(1.15);
 }
 
+.add-button,
+.quantity-button,
+.cal-day.clickable,
+.fragment-input {
+    transition: transform 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.add-button:hover:not(:disabled),
+.quantity-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.add-button:active:not(:disabled),
+.quantity-button:active:not(:disabled) {
+    transform: scale(0.96);
+    box-shadow: none;
+}
+
+.cal-day.clickable:active {
+    transform: scale(0.94);
+}
+
+.add-button:focus-visible,
+.quantity-button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.input-group input::-webkit-outer-spin-button,
+.input-group input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-group input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.fragment-input::-webkit-outer-spin-button,
+.fragment-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.fragment-input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .add-button,
+    .quantity-button,
+    .cal-day.clickable,
+    .fragment-input {
+        transition: none;
+    }
+}
+
+
 @media (max-width: 850px) {
     .calc-columns {grid-template-columns: 1fr;}
 }

@@ -347,7 +347,7 @@ const prizes = [
         id: 49,
         name: "nothing headphone (a)",
         fragments: 400,
-        image: "assets/flipper.webp",
+        image: "assets/nothing-headphone-a.png",
         quantity: 0
     },
     {
