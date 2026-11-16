@@ -537,7 +537,7 @@ body {
     margin-bottom: 14px;
 }
 
-button.cal-day {
+.button.cal-day {
     width: 100%;
     min-width: 0;
     padding: 0;
@@ -577,6 +577,31 @@ button.cal-day {
     opacity: 0.4;
     z-index: 10;
     pointer-events: none;
+}
+
+.quantity-input {
+    width: 64px;
+    padding: 6px 4px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: #eeeeee;
+    background-color: #202023;
+    border: 1px solid #55555a;
+    border-radius: 10px;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: #eeeeee;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

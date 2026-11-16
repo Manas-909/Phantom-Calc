@@ -526,7 +526,12 @@ function updateControls(prize) {
                 -
             </button>
 
-            <span>${prize.quantity}</span>
+            <input type="number" class="quantity-input" min="0" step="1"
+                value="${prize.quantity}"
+                onfocus="this.select()"
+                onkeydown="blockBadKeys(event)"
+                oninput="setQuantity(${prize.id}, this.value)"
+                onchange="finishedQuantity(${prize.id})">
 
             <button class="quantity-button" onclick="addPrize(${prize.id})">
                 +
@@ -538,6 +543,27 @@ function updateControls(prize) {
 }
 
 const FRAGMENTS_PER_HOURS = 10;
+
+function blockBadKeys(event) {
+    if (["-", "+", "e", "E"].includes(event.key)) {
+        event.preventDefault();
+    }
+}
+
+function setQuantity(id, newValue) {
+    const prize = prizes.find(item => item.id === id);
+
+    prize.quantity = Math.max(0, Math.floor(Number(newValue)) || 0);
+
+    calculateTotal();
+}
+
+function finishedQuantity(id) {
+    const prize = prizes.find(item => item.id === id);
+
+    updateControls(prize);
+    calculateTotal();
+}
 
 function calculateTotal() {
 
