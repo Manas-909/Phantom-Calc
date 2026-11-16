@@ -586,6 +586,12 @@ const PHANTOM_START = new Date("2026-08-13T00:00:00");
 const PHANTOM_END = new Date("2027-02-28T23:59:59");
 const DAY_MS = 1000*60*60*24;
 let selectedStart = null;
+let selectedEnd = null;
+let choosingEnd = false;
+
+let viewsDate = new Date()
+viewsDate.setDate(1);
+viewsDate.setHours(0, 0, 0, 0);
 
 function updatePhantomStatus() {
     const now = new Date();
@@ -604,36 +610,90 @@ function updatePhantomStatus() {
 
 updatePhantomStatus();
 
-function updatePerDay(remainingHours) {
-    const today = new Date()
-    today.setHours(0 , 0, 0, 0);
-
-    const end = new Date(PHANTOM_END)
-    end.setHours(0, 0, 0, 0);
-
-    if (selectedStart === null || selectedStart < today) {
-        selectedStart = today;
-    }
-    const start = selectedStart;
-
-    const daysToCode = Math.max(0, Math.round((end - start) / DAY_MS) + 1);
-
-    const hoursPerDay = daysToCode > 0 ? remainingHours / daysToCode : 0;
-
-    document.getElementById("hours-per-day").textContent = hoursPerDay.toFixed(1);
-    document.getElementById("days-to-code").textContent = daysToCode;
-
-    renderCalendar(today, start, end);
+function atMidnight(date) {
+    const copy = new Date(date);
+    copy.setHours(0, 0, 0, 0);
+    return copy;
 }
 
-function renderCalendar(today, start, end) {
+function calendarDayNumber(date) {
+    return Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+    ) / DAY_MS;
+}
+
+function updatePerDay(remainingHours) {
+    const today = atMidnight(new Date());
+    const phantomStart = atMidnight(PHANTOM_START);
+    const latest = atMidnight(PHANTOM_END)
+
+    const earliest = new Date(Math.max(today, phantomStart));
+    const hasAvailableDays = earliest <= latest;
+
+    if (hasAvailableDays) {
+        if (selectedStart === null || selectedEnd === null) {
+            selectedStart = new Date(earliest);
+            selectedEnd = new Date(latest);
+        }
+
+        if (selectedStart < earliest) {
+            selectedStart = new Date(earliest);
+        }
+
+        if (selectedEnd > latest) {
+            selectedEnd = new Date(latest);  
+        }
+
+        if (selectedEnd < selectedStart) {
+            selectedEnd = new Date(selectedStart);
+        }
+    }
+
+    const daysToCode = hasAvailableDays
+        ? calendarDayNumber(selectedEnd)
+            -calendarDayNumber(selectedStart) + 1
+        : 0;
+
+    const hoursPerDay = daysToCode > 0
+        ? remainingHours / daysToCode
+        : 0;
+
+    document.getElementById("hours-per-day").textContent = daysToCode > 0 ? hoursPerDay.toFixed(1) : "-";
+    document.getElementById("days-to-code").textContent = daysToCode;
+
+    const hint = document.getElementById("calendar-hint");
+
+    const formatDate = date => date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+    });
+
+    if (!hasAvailableDays) {
+        hint.textContent = "No coding days remain before Phantom ends.";
+    } else if (choosingEnd) {
+        hint.textContent = `Start: ${formatDate(selectedStart)}. Now choose an end date.`;
+    } else {
+        hint.textContent = `${formatDate(selectedStart)} - ${formatDate(selectedEnd)}. ` + "Click a day to choose a new range.";
+    }
+
+    renderCalendar(today, earliest, latest)
+
+}
+
+function renderCalendar(today, earliest, latest) {
     const grid = document.getElementById("calendar-grid");
     const title = document.getElementById("calendar-title");
 
-    const year = today.getFullYear();
-    const month = today.getMonth();
+    const year = viewsDate.getFullYear();
+    const month = viewsDate.getMonth();
 
-    title.textContent = today.toLocaleDateString("en-US", {month: "long", year: "numeric"});
+    title.textContent = viewsDate.toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric"
+    });
 
     const firstWeekday = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -646,30 +706,68 @@ function renderCalendar(today, start, end) {
 
     for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
-        const cell = document.createElement("div");
+        const available = date >= earliest && date <= latest;
+
+        const cell = document.createElement("button");
+        cell.type = "button";
         cell.classList.add("cal-day");
         cell.textContent = day;
+        cell.disabled = !available;
 
-        if (date < start) {
-            cell.classList.add("past");
-        } else if (date <= end) {
+        cell.setAttribute("aria-label", date.toLocaleDateString("en-US", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        }));
+
+        const inRange = available &&
+            selectedStart !== null &&
+            selectedEnd !== null &&
+            date >= selectedStart &&
+            date <= selectedEnd;
+
+        cell.setAttribute("aria-pressed", String(inRange));
+
+        if (inRange) {
             cell.classList.add("coding");
+
+            if (
+                date.getTime() === selectedStart.getTime() ||
+                date.getTime() === selectedEnd.getTime()
+            ) {
+                cell.classList.add("range-edge");
+            }
         }
 
-        if (date.getTime() === today.getTime()) {
-            cell.classList.add("today");
-        }
 
-        if (date >= today) {
+        if (!available) {
+            cell.classList.add("unavailable");
+        } else {
             cell.classList.add("clickable");
+
             cell.addEventListener("click", () => {
-                selectedStart = date;
+                if (!choosingEnd || date < selectedStart) {
+                    selectedStart = new Date(date);
+                    selectedEnd = new Date(date);
+                    choosingEnd = true;
+                } else {
+                    selectedEnd = new Date(date);
+                    choosingEnd = false;
+                }
+
                 calculateTotal();
             });
         }
 
         grid.appendChild(cell);
     }
+
+    const firstMonth = new Date(earliest.getFullYear(), earliest.getMonth(), 1);
+    const lastMonth = new Date(latest.getFullYear(), latest.getMonth(), 1);
+
+    document.getElementById("prev-month").disabled = viewsDate <= firstMonth;
+    document.getElementById("next-month").disabled = viewsDate >= lastMonth;
 }
 
 function updateFragments(id, newValue) {
@@ -686,6 +784,26 @@ function resetEmptyFragments(input, id) {
         input.value = prize.fragments;
     }
 }
+
+document.getElementById("prev-month").addEventListener("click", () => {
+    viewsDate = new Date(
+        viewsDate.getFullYear(),
+        viewsDate.getMonth() - 1,
+        1
+    );
+
+    calculateTotal();
+});
+
+document.getElementById("next-month").addEventListener("click", () => {
+    viewsDate = new Date(
+        viewsDate.getFullYear(),
+        viewsDate.getMonth() + 1,
+        1
+    );
+
+    calculateTotal();
+});
 
 setInterval(updatePhantomStatus, 60 * 60 *1000);
 calculateTotal();

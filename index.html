@@ -77,7 +77,20 @@
                     <p class="per-day-note"><span id="days-to-code">0</span> days to code</p>
 
                     <div class="calendar">
-                        <h3 id="calendar-title"></h3>
+                        <div class="calendar-header">
+                            <button type="button" class="cal-nav" id="prev-month"
+                                aria-label="Previous month">&lt;</button>
+
+                            <h3 id="calendar-title"></h3>
+
+                            <button type="button" class="cal-nav" id="next-month"
+                            aria-label="Next month">&gt;</button>
+                        </div>
+
+                        <p class="calendar-hint" id="calendar-hint" aria-live="polite">
+                            Choose a start date, then an end date.
+                        </p>
+
                         <div class="calendar-weekdays">
                             <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
                         </div>
@@ -90,6 +103,7 @@
         </div>
 
     </div>
+    <p class="unofficial-note">Not an official Hack Club tool</p>
     <script src="script.js"></script>
 </body>
 </html>
